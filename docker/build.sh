@@ -30,10 +30,10 @@ docker run -d \
   -p $WEB_PORT:8080 \
   aroma-dev:5000/arvato/jboss7
 
-echo "port forwarding..."
-for i in {$DB_PORT,$WEB_PORT}; do
-  VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port$i,tcp,,$i,,$i";
-  VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port$i,udp,,$i,,$i";
-done
+# echo "port forwarding..."
+# for i in {$DB_PORT,$WEB_PORT}; do
+#   VBoxManage modifyvm "boot2docker-vm" --natpf1 "tcp-port$i,tcp,,$i,,$i";
+#   VBoxManage modifyvm "boot2docker-vm" --natpf1 "udp-port$i,udp,,$i,,$i";
+# done
 
 echo "done!"
