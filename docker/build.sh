@@ -5,8 +5,14 @@ DB_INSTANCE=aroma_db
 DB_PORT=25432
 WEB_INSTANCE=aroma_web
 WEB_PORT=28080
-WEB_DIR_DEPLOYMENTS=/Users/eric/dev/docker_data/jboss-as/standalone/deployments
-WEB_DIR_AROMA=/Users/eric/dev/workspace/aroma
+
+## For Mac and Linux
+#WEB_DIR_DEPLOYMENTS=/Users/eric/dev/docker_data/jboss-as/standalone/deployments
+#WEB_DIR_AROMA=/Users/eric/dev/workspace/aroma
+
+## For Windows
+WEB_DIR_DEPLOYMENTS=//c/Users/eric/Documents/docker_data/jboss-as/standalone/deployments
+WEB_DIR_AROMA=//c/Users/eric/Documents/workspace/aroma
 
 
 echo "start db instance: $DB_INSTANCE"
@@ -22,10 +28,20 @@ echo "pls wait 20 seconds for db preparing..."
 sleep 20
 
 echo "start web instance: $WEB_INSTANCE"
+## For Mac and Linux
+#docker run -d \
+#  --name $WEB_INSTANCE \
+#  -v $WEB_DIR_DEPLOYMENTS:/opt/jboss-as/standalone/deployments \
+#  -v $WEB_DIR_AROMA:/aroma \
+#  --link $DB_INSTANCE:postgres \
+#  -p $WEB_PORT:8080 \
+#  aroma-dev:5000/arvato/jboss7
+
+## For Windows
 docker run -d \
   --name $WEB_INSTANCE \
-  -v $WEB_DIR_DEPLOYMENTS:/opt/jboss-as/standalone/deployments \
-  -v $WEB_DIR_AROMA:/aroma \
+  -v $WEB_DIR_DEPLOYMENTS://opt/jboss-as/standalone/deployments \
+  -v $WEB_DIR_AROMA://aroma \
   --link $DB_INSTANCE:postgres \
   -p $WEB_PORT:8080 \
   aroma-dev:5000/arvato/jboss7
