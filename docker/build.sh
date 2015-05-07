@@ -40,8 +40,8 @@ echo "start web instance: $WEB_INSTANCE"
 ## For Windows
 docker run -d \
   --name $WEB_INSTANCE \
-  -v $WEB_DIR_DEPLOYMENTS://opt/jboss-as/standalone/deployments \
-  -v $WEB_DIR_AROMA://aroma \
+  -v $WEB_DIR_DEPLOYMENTS:/opt/jboss-as/standalone/deployments \
+  -v $WEB_DIR_AROMA:/aroma \
   --link $DB_INSTANCE:postgres \
   -p $WEB_PORT:8080 \
   aroma-dev:5000/arvato/jboss7
