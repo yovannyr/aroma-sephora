@@ -1,0 +1,13 @@
+.metadata
+RemoteSystemsTempFiles
+*/.settings
+*/*/.settings
+.project
+*/.project
+*/target
+*/.classpath
+*/*/.classpath
+sephora-be/sephora-order-be/src/generated
+sephora-be/sephora-order-be/src/main/xtend-gen
+sephora-api/src/generated
+sephora-api/sephora-order-api/src/generated

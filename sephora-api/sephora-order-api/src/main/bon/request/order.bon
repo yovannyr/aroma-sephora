@@ -1,0 +1,17 @@
+import base.types.*
+import base.data.*
+import base.api.*
+import base.api.types.*
+import a42order.order.*
+import sephora.order.*
+
+package (com.arvatosystems.fortytwo) sephora.request XML PROPERTY {
+
+    class SephoraPurchaseOrderRequest extends RequestParameters {
+        required (PurchaseOrderRef...) purchaseOrderRef;
+    }
+
+    class SephoraPurchaseOrderResult extends ServiceResponse {
+        required (SephoraPurchaseOrderDTO...) order;
+    }
+}

@@ -1,0 +1,20 @@
+import base.data.*
+import a42order.order.*
+
+package (com.arvatosystems.fortytwo) sephora.order XML PROPERTY {
+    default private unsigned trim noControlChars;
+    properties serialized, ref, searchprefix, 
+        tenantCategory is com.arvatosystems.fortytwo.base.TenantCategory(), noupdate is
+        com.arvatosystems.fortytwo.base.NotUpdatable;
+        
+    enum SephoraEnumType {
+        Type1   = "Type1",
+        Type2   = "Type2",
+        Type3   = "Type3"
+    }  
+    
+    class SephoraPurchaseOrderDTO extends PurchaseOrderDTO {
+        optional Integer sepInt01;
+        optional Enum SephoraEnumType sepEnumType;
+    }
+}

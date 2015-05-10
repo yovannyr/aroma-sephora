@@ -1,0 +1,15 @@
+import base.types.*
+import setups.*
+import entities.base.data.*
+import a42order.order.entities.*
+import sephora.order.*
+
+@Generator(noMapper)
+package(com.arvatosystems.fortytwo) sephora.order.entities owner appa42 prefix sep {
+    
+    entity SepPurchaseOrderEntity category datv is SephoraPurchaseOrderDTO inherits PurchaseOrderEntity discriminator "1" { 
+        pk (objectRef)
+        index unique (tenantRef, orderId)
+    }
+   
+}

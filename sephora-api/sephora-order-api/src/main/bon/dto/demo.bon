@@ -1,0 +1,18 @@
+import base.data.*
+import a42order.order.*
+
+package (com.arvatosystems.fortytwo) sephora.demo XML PROPERTY {
+    default private unsigned trim noControlChars;
+    properties 
+        serialized, ref, searchprefix, unroll,
+        tenantCategory is com.arvatosystems.fortytwo.base.TenantCategory(),
+        noupdate is com.arvatosystems.fortytwo.base.NotUpdatable;
+       
+    class SepDemoRef RTTI 2501 extends Ref {}
+    
+    class SepDemoDTO extends SepDemoRef  {
+        required Unicode(20)    name;
+        required Unicode(20)    field1;
+        optional Unicode(100)   field2;
+    }
+}

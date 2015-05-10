@@ -1,0 +1,114 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.arvato-systems.fortytwo</groupId>
+        <artifactId>aroma42-ee-server-build</artifactId>
+        <version>2.2.4-SNAPSHOT</version>
+        <relativePath/>
+    </parent>
+    
+    <artifactId>sephora-ee-build</artifactId>
+    <packaging>ear</packaging>
+    <version>0.0.1-SNAPSHOT</version>
+    <description>Build instructions for sephora-ee</description>
+    
+    <properties>
+        <!-- to be used by dependent projects (same as project.version, but must be provided explicitly so that imports work) -->
+        <version.sephora>0.0.1-SNAPSHOT</version.sephora>
+    </properties>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import aroma dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>sephora-dm</artifactId>
+                <version>${version.sephora}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- NOTE: All other DMs are implicitly included via the parent pom! -->
+        </dependencies>
+    </dependencyManagement>
+    
+    <dependencies>
+        <!-- persistence.xml -->
+        <dependency>
+            <groupId>com.arvato-systems.fortytwo</groupId>
+            <artifactId>sephora-base-ee</artifactId>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.arvato-systems.fortytwo</groupId>
+            <artifactId>sephora-order-be</artifactId>
+            <type>ejb</type>
+        </dependency>
+        <dependency>
+            <groupId>com.arvato-systems.fortytwo</groupId>
+            <artifactId>aroma42-ui-war</artifactId>
+            <type>war</type>
+        </dependency>
+    </dependencies>
+    
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>    
+            <dependencies>
+                <dependency>
+                    <groupId>com.arvato-systems.fortytwo</groupId>
+                    <artifactId>sephora-order-api</artifactId>
+                </dependency>  
+                <dependency>
+                    <groupId>com.arvato-systems.fortytwo</groupId>
+                    <artifactId>sephora-order-be</artifactId>
+                    <type>ejb</type>
+                </dependency>   
+            </dependencies>
+            
+            <build>
+                <finalName>sephora</finalName>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-ear-plugin</artifactId>
+                        <version>${version.maven-ear-plugin}</version>
+                        <configuration>
+                            <!-- Tell Maven we are using Java EE 6 -->
+                            <version>6</version>
+                            
+                            <!-- The canonical name of this application, used to e.g. qualify resulting JNDI resources -->
+                            <applicationName>sephora</applicationName>
+                            
+                            <defaultLibBundleDir>lib</defaultLibBundleDir>
+                            <fileNameMapping>no-version</fileNameMapping>
+                            
+                            <archive>
+                                <manifestEntries>
+                                    <Dependencies>deployment.fortytwo-ra.rar export optional</Dependencies>
+                                </manifestEntries>
+                            </archive>
+
+                            <modules combine.children="append">
+                                <!-- standard modules -->
+                                <ejbModule>
+                                    <groupId>com.arvato-systems.fortytwo</groupId>
+                                    <artifactId>sephora-base-ee</artifactId>
+                                </ejbModule>
+                                <webModule>
+                                    <groupId>com.arvato-systems.fortytwo</groupId>
+                                    <artifactId>aroma42-ui-war</artifactId>
+                                    <contextRoot>/sephora</contextRoot>
+                                </webModule>
+                            </modules>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>    
+</project>

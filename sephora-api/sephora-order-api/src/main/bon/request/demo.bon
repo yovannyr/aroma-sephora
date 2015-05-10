@@ -1,0 +1,24 @@
+import base.types.*
+import base.data.*
+import base.api.*
+import base.messaging.*
+import base.api.types.*
+import base.crud.*
+import base.search.*
+import app.iso.*
+import sephora.demo.*
+
+package (com.arvatosystems.fortytwo) sephora.request XML PROPERTY {
+    default private unsigned trim noControlChars;
+    properties 
+        serialized, ref, searchprefix,
+        tenantCategory is com.arvatosystems.fortytwo.base.TenantCategory(),
+        noupdate is com.arvatosystems.fortytwo.base.NotUpdatable;
+        
+    class SepDemoCrudRequest extends CrudRequest<SepDemoRef, SepDemoDTO> { }
+    
+    class SepDemoRespone extends ServiceResponse {
+        required (SepDemoDTO...) sepDemo;
+    }
+        
+}

@@ -1,0 +1,15 @@
+import base.types.*
+import setups.*
+import entities.base.data.*
+import a42order.order.entities.*
+import sephora.demo.*
+
+@Generator(noMapper)
+package(com.arvatosystems.fortytwo) sephora.demo.entities owner appa42 prefix sep {
+    
+    entity SepDemoEntity category datav is SepDemoDTO inheritance tablePerClass {
+        tenantClass InternalTenantRef 
+        pk (objectRef)
+        index (name)
+    }
+}

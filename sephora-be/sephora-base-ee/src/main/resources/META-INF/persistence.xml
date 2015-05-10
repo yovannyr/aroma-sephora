@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/persistence
+ http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+    version="1.0">
+    <persistence-unit name="fortytwo-EEDS">
+        <!-- this one is for running in an EE server -->
+        <jta-data-source>java:jboss/datasources/fortytwo-EEDS</jta-data-source>
+            
+        <!-- fortytwo -->
+        <jar-file>fortytwo-base-be.jar</jar-file>
+        <jar-file>fortytwo-baseio-be.jar</jar-file>
+        <jar-file>fortytwo-app-be.jar</jar-file>
+        <jar-file>fortytwo-comm-be.jar</jar-file>
+        <jar-file>fortytwo-rep-be.jar</jar-file>
+        <jar-file>fortytwo-ssm-be.jar</jar-file>
+        <jar-file>fortytwo-bpm-be.jar</jar-file>
+        <jar-file>fortytwo-solrsearch-be.jar</jar-file>
+            
+        <!-- aroma42 -->
+        <jar-file>a42-base-be.jar</jar-file>
+        <jar-file>a42-customer-be.jar</jar-file>
+        <jar-file>a42-order-be-entity.jar</jar-file>
+        <jar-file>a42-stock-be.jar</jar-file>
+        <jar-file>a42-skus-be.jar</jar-file>
+        <jar-file>a42-pricing-be.jar</jar-file>
+        <jar-file>a42-history-be.jar</jar-file>
+        <jar-file>a42-solrsearch-be.jar</jar-file>
+        <jar-file>a42-rep-be.jar</jar-file>
+
+        <!-- sephora -->
+        <jar-file>sephora-order-be.jar</jar-file>
+
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <!-- Properties for Hibernate -->
+            <property name="hibernate.connection.autocommit" value="false" />
+            <property name="hibernate.archive.autodetection" value="class" />  <!-- default in EE environments -->
+            <property name="jadira.usertype.autoRegisterUserTypes" value="true" />
+            <property name="hibernate.show_sql" value="false" /> <!-- turn on for detailed debugging -->
+
+            <!-- Metadata about this Persistence Unit. Only used by FortyTwo -->
+            <property name="fortytwo.datasource.url" value="java:jboss/datasources/fortytwo-EEDS" />
+        </properties>
+    </persistence-unit>
+</persistence>

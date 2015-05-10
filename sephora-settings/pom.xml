@@ -1,0 +1,164 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+        <groupId>com.arvato-systems.fortytwo</groupId>
+        <artifactId>sephora-build</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    
+    <artifactId>sephora-settings</artifactId>
+    <packaging>pom</packaging>
+    
+    <dependencyManagement>
+        <dependencies>
+            <!-- Import common dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>fortytwo-common-dm</artifactId>
+                <version>${version.common}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Import fortytwo (backend) dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>fortytwo-dm</artifactId>
+                <version>${version.fortytwo}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency> 
+            <!-- Import fortytwo-ui dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>fortytwo-ui-dm</artifactId>
+                <version>${version.fortytwo}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Import fortytwo-ee dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>fortytwo-ee-dm</artifactId>
+                <version>${version.fortytwo}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Import aroma42 (backend) dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>a42-dm</artifactId>
+                <version>${version.aroma42}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Import aroma42-ui dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>aroma42-ui-dm</artifactId>
+                <version>${version.aroma42}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <!-- Import aroma42-ee dependency management -->
+            <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>aroma42-ee-dm</artifactId>
+                <version>${version.aroma42}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+             <!-- Import sephora dependency management -->
+             <dependency>
+                <groupId>com.arvato-systems.fortytwo</groupId>
+                <artifactId>sephora-dm</artifactId>
+                <version>${version.sephora}</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+    
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-source-plugin</artifactId>
+                    <version>${version.maven-source-plugin}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>jar</goal>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <version>${version.maven-compiler-plugin}</version>
+                    <configuration>
+                        <source>1.7</source>
+                        <target>1.7</target>
+                        <encoding>${project.build.sourceEncoding}</encoding>
+                    </configuration>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-jar-plugin</artifactId>
+                    <version>${version.maven-jar-plugin}</version>
+                    <executions>
+                        <execution>
+                            <goals>
+                                <goal>test-jar</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+                
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>${version.maven-war-plugin}</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+        
+        <plugins>
+            <plugin>
+                <!-- Maven enforcer plugin shall affect the MASTER branch build as this should 
+                be a none-Snapshot branch. The enforcer plugin ensures that the build does not 
+                have a references to Snapshot versions, otherwise the build shall fails. -->
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${version.maven-enforcer-plugin}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-no-snapshots</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <rules>
+                        <requireReleaseDeps>
+                            <message>No snapshots dependencies allowed on the master branch!</message>
+                            <searchTransitive>true</searchTransitive>
+                            <failWhenParentIsSnapshot>true</failWhenParentIsSnapshot>
+                            <onlyWhenRelease>true</onlyWhenRelease>
+                        </requireReleaseDeps>
+                    </rules>
+                    <fail>true</fail>
+                    <failFast>true</failFast>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    
+</project>
